@@ -300,13 +300,6 @@ def welcome():
                 video_bytes = video_file.read()
             st.video(video_bytes)
 
-            # Pfad zum vorhandenen Video
-            video_path = "videos/blood.mp4"
-            video_file = open(video_path, "rb")
-            save_bytes = video_file.read()
-            with open(video_path, "rb") as video_file:
-                video_bytes = video_file.read()
-            st.video(video_bytes)
             
 #Feedback tab, Schriftart und Grösse definiert
     if choice == "Feedback":
