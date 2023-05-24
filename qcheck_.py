@@ -52,9 +52,11 @@ def login():
 
     # Text einfügen
     st.write(
-        "Die Funktion 'Sign Up' ist verfügbar nach App Freigabe durch A. Rutzer und S. Wehrli!",
-        unsafe_allow_html=True,
+    "<span style='color: grey'><i>Die Funktion 'Sign Up' ist verfügbar nach App Freigabe durch A. Rutzer und S. Wehrli!</i></span>",
+    unsafe_allow_html=True,
     )
+
+
 
     if login_option == "Login":
         username = st.text_input("Username")
@@ -65,6 +67,7 @@ def login():
             if username in correct_username and password == correct_username[username]:
                 st.success("Login successful!")
                 st.session_state["logged_in"] = True
+                st.experimental_rerun()
             else:
                 st.error("Invalid username or password")
 
@@ -385,8 +388,10 @@ def welcome():
                 # wir wollten nicht, dass schon gewisse Wörter vorher erscheinen, deshalb 0
             st.write(long_text[:0])
 
-
-
+    logout_button = st.button ("Logout")
+    if logout_button:
+        st.session_state["logged_in"] = False
+        st.experimental_rerun()
 
 # Haupt App
 def app():
@@ -400,6 +405,8 @@ def app():
     else:
         # welcome Seite nach erfolgreiche Login 
         welcome()
+
+
 
 # app laufen lassen
 if __name__ == '__main__':
