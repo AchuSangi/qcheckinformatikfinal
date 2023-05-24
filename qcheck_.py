@@ -138,7 +138,7 @@ def welcome():
                 return result
 
             #Klick Button mit 2 Stellen nach Komma
-            if st.button("Calculate"):
+            if st.button("calculation for Hematogram II"):
                 result = calculate_value(mean_val, low_val)
                 st.write("The calculated 1s value is:", format(result,".3f"))
                 coefficient_of_variation = result / mean_val *100
@@ -182,7 +182,7 @@ def welcome():
                 return result
             
             #Klick button
-            if st.button("Calculate."):
+            if st.button("calculation for Hematogram V"):
                 result = calculate_value(mean_val2, low_val2)
                 st.write("The calculated 1s value is:", format(result,".3f"))
                 coefficient_of_variation = result / mean_val2 *100
