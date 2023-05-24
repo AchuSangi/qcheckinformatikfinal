@@ -220,10 +220,20 @@ def welcome():
                
                
     })
-           
-           # Tabelle anzeigen
+    
+           def format_definition(definition):
+                 return f"<p style='font-size: 16px; text-align: justify;'>{definition}</p>"
+
+           df_definitions['Definition'] = df_definitions['Definition'].apply(format_definition)
+
+           st.write(df_definitions.to_html(escape=False, index=False), unsafe_allow_html=True)       
+          
+                # Tabelle anzeigen
            st.table(df_definitions)
-           
+         
+            
+         
+            
         with tab4:
             st.write("""<h2 style='font-size: 20px; color: grey;'>This page is temporarly progress, we will be back soon!</h2>
                    """, unsafe_allow_html=True)
@@ -256,32 +266,39 @@ def welcome():
             sizes = [30, 50, 20]         
         
 
-    #About us tab, Schriftart und Grösse definiert
+    #Videos tab, Schriftart und Grösse definiert
     if choice == "Videos":
     
         st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
         st.title('Videos')
         st.write("<p style='font-size: 30px; color: grey; text-decoration: none;'>Discovering solutions, delivering results</p>", unsafe_allow_html=True)
-
-        st.markdown(
-         """
-         <p style='font-size: 18px;'>Welcome to our website! Here you will find an extensive collection of instructional videos designed to help you acquire new skills and expand your knowledge in various areas.
-         Our goal is to make education accessible and enjoyable. We firmly believe that learning is a lifelong process and that everyone should have the opportunity to educate themselves, regardless of time, location, or financial resources. With our instructional videos, we offer you the flexibility to set your own learning pace and choose the topics that interest you the most.
-         Our videos are created by experienced professionals and experts in their respective fields. We place great emphasis on delivering high-quality content that is precise and easy to understand. Whether you want to enhance your professional skills, explore a new hobby, or simply broaden your knowledge, we have a diverse range of topics that cater to your interests.
-         Our intuitive user interface allows you to browse the instructional videos by categories or search for specific topics. We regularly update our content to ensure that you stay up to date and have access to the latest knowledge.
-         We firmly believe that learning can be not only informative but also entertaining. Therefore, we place great emphasis on engaging presentation and interactive elements in our videos. We want you to have fun while learning and simultaneously grow as an individual.
-         So, what are you waiting for? Dive into our world of instructional videos and discover new horizons. Get ready to expand your knowledge, acquire new skills, and ignite your passions. The possibilities are limitless, and we are here to accompany you on this exciting educational journey.
-         Ready to get started? Browse through our videos and experience the power of hands-on learning. Enjoy and best of luck!</p>
-         <p style='font-size: 20px;'>Visit our website to learn more about our services, and let us help you optimize your hematology laboratory's performance. Our team is here to support you with any additional information or help you require.</p>
-         """, unsafe_allow_html=True)
       
-        #Bild3 hinzugefügt mit Spruch
-        imageabout = Image.open('bilder/lab.jpg')
-        st.image(imageabout, caption='"Learning never exhausts the mind." - Leonardo da Vinci', use_column_width=True)
-       
+        # Spalten erstellen
+        col1, col2 = st.columns([2, 1])
+
+  # Text in erster Spalte
+        with col1:
+                st.markdown(
+    """
+    <p style='font-size: 18px; text-align: justify;'>Here you will find a vast collection of instructional videos to help you acquire new skills and expand your knowledge in various areas. 
+    Our goal is to make education accessible and enjoyable. We believe in lifelong learning for all, regardless of constraints like time, location, or financial resources.
+    With our videos, you can learn at your own pace and choose topics that interest you. Our content is created by experienced professionals and experts, ensuring 
+    high-quality and easy-to-understand material. Whether you want to enhance your professional skills, explore new hobbies, or broaden your knowledge, we offer a 
+    diverse range of topics. Our user-friendly interface allows you to browse videos by category or search for specific topics. We regularly update our content to 
+    keep you informed with the latest knowledge. Learning should be informative and entertaining, so we focus on engaging presentation and interactive elements. 
+    Join us in this exciting educational journey to discover new horizons, expand your knowledge, and ignite your passions. The possibilities are limitless, and
+    we are here to support you. Ready to get started?
+    </p>
+    """, unsafe_allow_html=True)
+
+  # Bild in zweiter Spalte
+        with col2:
+      # Bild3 hinzugefügt mit Spruch
+              imageLab = Image.open('bilder/lab.jpg')
+              st.image(imageLab, caption='"Learning never exhausts the mind." - Leonardo da Vinci', use_column_width=True)
 
         # Read more Button erstellt
-        read_more = st.button('VIDEOS')
+        read_more = st.button('VIDEOS...')
 
         if read_more:
             # ganzer Text wird angezeigt, wenn man es klickt
@@ -309,20 +326,21 @@ def welcome():
 
         st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
         st.title('Feedback')
-    
+        st.write("<p style='font-size: 30px; color: grey; text-decoration: none;'>Welcome to our feedback page!</p>", unsafe_allow_html=True)
         st.markdown(
-     """
-     <p style='font-size: 20px;'>
-     Welcome to our feedback page!
-
+    """
+    <p style='font-size: 20px; text-align: justify;'>
     We are delighted to have you here and appreciate your valuable feedback. Your opinion is of great importance to us as it helps us continuously improve our services to meet your expectations.
     This feedback page provides you with an opportunity to share your thoughts, suggestions, and comments with us. Whether you have praise, constructive criticism, improvement ideas, or questions, we are eager to hear your feedback.
     We firmly believe that feedback is a crucial component of our growth. It enables us to address the needs and desires of our customers and enhance your experiences with our services.
     Your feedback is not only welcome but also taken seriously. We will carefully review each response and utilize them to implement positive changes and enhance our performance.
     We would like to express our sincere gratitude for taking the time to share your feedback with us. Together, we can contribute to making your experiences with our company even better.
     We look forward to receiving your feedback and are excited to hear your impressions! 
-    Yours sincerely, Q-Check Team </p>
-     """, unsafe_allow_html=True)
+    Yours sincerely, Q-Check Team
+    </p>
+    """, unsafe_allow_html=True)
+
+
 
         #Bild3 hinzugefügt mit Spruch
         imageabout = Image.open('bilder/feedback.jpg')
