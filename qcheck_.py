@@ -423,14 +423,17 @@ Step into the world of web development and unlock limitless possibilities. Our t
 """, unsafe_allow_html=True)
 
 
-            #Shankavi hinzugefügt mit Spruch
-            imageabout = Image.open('bilder/shankavie.jpg')
-            st.image(imageabout, caption='Shankavie Jeyanathan - Studierende BMLD an der ZHAW Wädenswil', use_column_width=True)
-    
-            #Akkshayaa hinzugefügt mit Spruch
-            imageabout = Image.open('bilder/akkshayaa.jpg')
-            st.image(imageabout, caption='Akkshayaa Rukunakumar - Studierende BMLD an der ZHAW Wädenswil', use_column_width=True)
+             # Shankavie hinzugefügt mit Spruch
+            col1, col2 = st.columns(2)
 
+            with col1:
+                image_about = Image.open('bilder/shankavie.jpg')
+                st.image(image_about, caption='Shankavie Jeyanathan - Studierende BMLD an der ZHAW Wädenswil', use_column_width=True)
+
+    # Akkshayaa hinzugefügt mit Spruch
+            with col2:
+                image_about = Image.open('bilder/akkshayaa.jpg')
+                st.image(image_about, caption='Akkshayaa Rukunakumar - Studierende BMLD an der ZHAW Wädenswil', use_column_width=True)
 
         with tab3:
             st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
