@@ -206,7 +206,7 @@ def welcome():
                    'Basophils are a type of white blood cell that works closely with your immune system to defend your body from allergens, pathogens and parasites. Basophils release enzymes to improve blood flow and prevent blood clots.',
                    'A type of blood cell that is made in the bone marrow and found in the blood. Red blood cells contain a protein called hemoglobin, which carries oxygen from the lungs to all parts of the body.',
                    'Eosinophils are one of several white blood cells that support your immune system. Sometimes, certain medical conditions and medications cause high eosinophil levels.',
-                   'Hemoglobin is the iron-containing oxygen-transport metalloprotein present in red blood cells of almost all vertebrates as well as the tissues of some invertebrates.',
+                   'Hemoglobin is the iron containing oxygen-transport metalloprotein present in red blood cells of almost all vertebrates as well as the tissues of some invertebrates.',
                    'The amount of whole blood that is made up of red blood cells.',
                    'White blood cells are part of the body\'s immune system. They help the body fight infection and other diseases. Types of white blood cells are granulocytes (neutrophils, eosinophils, and basophils), monocytes, and lymphocytes (T cells and B cells).',
                    'Lymphocytes are a type of white blood cell. They help your body\'s immune system fight cancer and foreign viruses and bacteria.',
@@ -366,12 +366,15 @@ def welcome():
 
     #About us tab, Schriftart und Grösse definiert
     if choice == "About Us":
-    
-        st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
-        st.title('Who are we?')
-        st.write("<p style='font-size: 30px; color: grey; text-decoration: none; text-align: justify;'>Discovering solutions, delivering results</p>", unsafe_allow_html=True)
+        tab1, tab2, tab3 = st.tabs(["About Us", "Web Developer", "Contact"])
 
-        st.markdown(
+        with tab1:
+            
+            st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
+            st.title('Who are we?')
+            st.write("<p style='font-size: 30px; color: grey; text-decoration: none; text-align: justify;'>Discovering solutions, delivering results</p>", unsafe_allow_html=True)
+
+            st.markdown(
  """
 <p style='font-size: 20px; text-align: justify;'>Welcome to our hematology quality control website, where we provide comprehensive solutions for ensuring accurate and reliable results in your hematology laboratory. 
 Our team of experts has years of experience in the field, and we understand the importance of quality control in providing the best possible care to patients. 
@@ -382,13 +385,13 @@ Our focus on quality control means that you can trust in the accuracy and precis
 """, unsafe_allow_html=True)
 
 
-        #Bild3 hinzugefügt mit Spruch
-        imageabout = Image.open('bilder/about.jpg')
-        st.image(imageabout, caption='"The science of today is the technology of tomorrow." - Edward Teller', use_column_width=True)
+            #Bild3 hinzugefügt mit Spruch
+            imageabout = Image.open('bilder/about.jpg')
+            st.image(imageabout, caption='"The science of today is the technology of tomorrow." - Edward Teller', use_column_width=True)
     
 
-        # Text Personas
-        long_text = """
+            # Text Personas
+            long_text = """
         The app was created for Nila Walker. Nila is a 32-year-old woman and works as a biomedical laboratory 
         diagnostician at Roche. Nila has a lot of responsibilities in the company, so she doesn't have time to recalculate 
         the range of norm values ​​for the controls with each new lot number. Due to the stress, it has also happened that she entered the range 
@@ -397,16 +400,68 @@ Our focus on quality control means that you can trust in the accuracy and precis
         calculates the standard values ​​​​for quality control.
         """
         
-        # Read more Button erstellt
-        read_more = st.button('How it all started...')
+            # Read more Button erstellt
+            read_more = st.button('How it all started...')
 
-        if read_more:
+            if read_more:
     # ganzer Text wird angezeigt, wenn man es klickt
-            st.markdown(f"<p style='text-align: justify;'>{long_text}</p>", unsafe_allow_html=True)
-        else:
+                st.markdown(f"<p style='text-align: justify;'>{long_text}</p>", unsafe_allow_html=True)
+            else:
     # wir wollten nicht, dass schon gewisse Wörter vorher erscheinen, deshalb 0
-            st.markdown(f"<p style='text-align: justify;'>{long_text[:0]}</p>", unsafe_allow_html=True)
+                st.markdown(f"<p style='text-align: justify;'>{long_text[:0]}</p>", unsafe_allow_html=True)
 
+        with tab2:
+            
+            st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
+            st.title('Web Developer')
+   
+            st.markdown(
+ """
+<p style='font-size: 20px; text-align: justify;'>
+Step into the world of web development and unlock limitless possibilities. Our team of skilled web developers is dedicated to creating stunning and functional websites. We specialize in crafting customized web solutions tailored to your unique business needs. From responsive designs to seamless navigation, we ensure an exceptional user experience. Let us bring your vision to life and help you establish a strong online presence. 
+</p>
+""", unsafe_allow_html=True)
+
+
+            #Shankavi hinzugefügt mit Spruch
+            imageabout = Image.open('bilder/shankavie.jpg')
+            st.image(imageabout, caption='Shankavie Jeyanathan - Studierende BMLD an der ZHAW Wädenswil', use_column_width=True)
+    
+            #Akkshayaa hinzugefügt mit Spruch
+            imageabout = Image.open('bilder/akkshayaa.jpg')
+            st.image(imageabout, caption='Akkshayaa Rukunakumar - Studierende BMLD an der ZHAW Wädenswil', use_column_width=True)
+
+
+        with tab3:
+            st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
+            st.title('Contacts')
+            st.markdown(
+ """
+Thank you for visiting our website! We value your interest and would be delighted to hear from you. Please feel free to get in touch with us using any of the contact methods below:
+
+**Phone:** 
+
++41 79 726 71 47
+
+**Email:**
+
+jeyansha@students.zhaw.ch
+
+rukunakk@students.zhaw.ch
+
+**Address:**
+
+ZHAW Campus Reidbach (RT), School of Life Sciences und Facility Management<br>
+Einsiedlerstrasse 31<br>
+8820 Wädenswil
+""", 
+unsafe_allow_html=True)
+                
+            st.write("""<h2 style='font-size: 15px; color: #d1b8c8; font-style: italic;'>We look forward to hearing from you and will respond to your inquiries as soon as possible. Your feedback and questions are important to us, and we strive to provide the best possible customer service. Thank you for your interest in our company!</h2>
+                              """, unsafe_allow_html=True)
+
+        
+            
 
     logout_button = st.button ("Logout")
     if logout_button:
