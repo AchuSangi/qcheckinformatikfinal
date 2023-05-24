@@ -109,7 +109,7 @@ def welcome():
             st.header("Hematogram II")
             st.write("""<h2 style='font-size: 20px;'>Calculations for Quality Control</h2>
                         """, unsafe_allow_html=True)
-            st.markdown("<p style='text-align: justify;'>Indication: Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: justify;'><em>Indication:</em> Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).</p>", unsafe_allow_html=True)
 
             # Parameter erstellt
             st.write("Enter values:")
@@ -154,7 +154,7 @@ def welcome():
             st.write("""<h2 style='font-size: 20px;'>Calculations for Quality Control</h2>
                        """, unsafe_allow_html=True)
             
-            st.markdown("<p style='text-align: justify;'>Indication: Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: justify;'><em>Indication:</em> Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).</p>", unsafe_allow_html=True)
 
             #Paramter erstellt für tab 2
             st.write("Enter values:")
