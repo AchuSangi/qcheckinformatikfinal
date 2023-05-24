@@ -228,8 +228,6 @@ def welcome():
 
            st.write(df_definitions.to_html(escape=False, index=False), unsafe_allow_html=True)       
           
-                # Tabelle anzeigen
-           st.table(df_definitions)
          
             
          
