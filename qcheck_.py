@@ -109,7 +109,7 @@ def welcome():
             st.header("Hematogram II")
             st.write("""<h2 style='font-size: 20px;'>Calculations for Quality Control</h2>
                         """, unsafe_allow_html=True)
-            st.markdown("*Indication:* Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: justify;'>Indication: Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).</p>", unsafe_allow_html=True)
 
             # Parameter erstellt
             st.write("Enter values:")
@@ -153,7 +153,8 @@ def welcome():
             st.header("Hematogram V")
             st.write("""<h2 style='font-size: 20px;'>Calculations for Quality Control</h2>
                        """, unsafe_allow_html=True)
-            st.markdown("*Indication:* Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).", unsafe_allow_html=True)
+            
+            st.markdown("<p style='text-align: justify;'>Indication: Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).</p>", unsafe_allow_html=True)
 
             #Paramter erstellt für tab 2
             st.write("Enter values:")
@@ -368,17 +369,19 @@ def welcome():
     
         st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
         st.title('Who are we?')
-        st.write("<p style='font-size: 30px; color: grey; text-decoration: none;'>Discovering solutions, delivering results</p>", unsafe_allow_html=True)
+        st.write("<p style='font-size: 30px; color: grey; text-decoration: none; text-align: justify;'>Discovering solutions, delivering results</p>", unsafe_allow_html=True)
 
         st.markdown(
-         """
-         <p style='font-size: 20px;'>Welcome to our hematology quality control website, where we provide comprehensive solutions for ensuring accurate and reliable results in your hematology laboratory. 
-         Our team of experts has years of experience in the field, and we understand the importance of quality control in providing the best possible care to patients. 
-         We offer a range of products and services, including proficiency testing, validation, and training, all designed to help you achieve and maintain the highest standards of quality control in hematology. 
-         Our focus on quality control means that you can trust in the accuracy and precision of your results, enabling you to provide the highest standard of care to your patients.
-         </p>
-         <p style='font-size: 20px;'>Visit our website to learn more about our services, and let us help you optimize your hematology laboratory's performance. Our team is here to support you with any additional information or help you require.</p>
-         """, unsafe_allow_html=True)
+ """
+<p style='font-size: 20px; text-align: justify;'>Welcome to our hematology quality control website, where we provide comprehensive solutions for ensuring accurate and reliable results in your hematology laboratory. 
+Our team of experts has years of experience in the field, and we understand the importance of quality control in providing the best possible care to patients. 
+We offer a range of products and services, including proficiency testing, validation, and training, all designed to help you achieve and maintain the highest standards of quality control in hematology. 
+Our focus on quality control means that you can trust in the accuracy and precision of your results, enabling you to provide the highest standard of care to your patients.
+</p>
+<p style='font-size: 20px; text-align: justify;'>Visit our website to learn more about our services, and let us help you optimize your hematology laboratory's performance. Our team is here to support you with any additional information or help you require.</p>
+""", unsafe_allow_html=True)
+
+
         #Bild3 hinzugefügt mit Spruch
         imageabout = Image.open('bilder/about.jpg')
         st.image(imageabout, caption='"The science of today is the technology of tomorrow." - Edward Teller', use_column_width=True)
@@ -393,16 +396,17 @@ def welcome():
         That's why we decided to make Nila's everyday work a little easier and design an app that 
         calculates the standard values ​​​​for quality control.
         """
-
+        
         # Read more Button erstellt
         read_more = st.button('How it all started...')
 
         if read_more:
-            # ganzer Text wird angezeigt, wenn man es klickt
-            st.write(long_text)
+    # ganzer Text wird angezeigt, wenn man es klickt
+            st.markdown(f"<p style='text-align: justify;'>{long_text}</p>", unsafe_allow_html=True)
         else:
-                # wir wollten nicht, dass schon gewisse Wörter vorher erscheinen, deshalb 0
-            st.write(long_text[:0])
+    # wir wollten nicht, dass schon gewisse Wörter vorher erscheinen, deshalb 0
+            st.markdown(f"<p style='text-align: justify;'>{long_text[:0]}</p>", unsafe_allow_html=True)
+
 
     logout_button = st.button ("Logout")
     if logout_button:
