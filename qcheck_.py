@@ -45,6 +45,7 @@ st.markdown(css, unsafe_allow_html=True)
 # Benutzername und Passwort erstellen
 correct_username = {"zhaw": "1234", "adrian": "aaaa", "samuel": "ssss", "sangi": "1111", "achu": "4444"}
 
+
 # Login Seite
 def login():
     st.write("# Login")
@@ -55,7 +56,6 @@ def login():
     "<span style='color: grey'><i>Die Funktion 'Sign Up' ist verfügbar nach App Freigabe durch A. Rutzer und S. Wehrli!</i></span>",
     unsafe_allow_html=True,
     )
-
 
 
     if login_option == "Login":
@@ -77,15 +77,14 @@ def login():
         confirm_password = st.text_input("Confirm Password", type="password")
         signup_button = st.button("Sign up")
 
-
-
         if signup_button:
             if new_password == confirm_password:
                 st.success("Sign up successful! Please log in.")
                 correct_username[new_username] = new_password
             else:
                 st.error("Passwords do not match")
-                
+ 
+
 
 # Seite für Willkommensnachricht nach erfolgreicher Anmeldung
 def welcome():
@@ -103,7 +102,7 @@ def welcome():
         st.markdown(""" <h2 style='font-size: 20px;'><em>Qualitycheck</em> is an open-source app framework built specifically to check quality control range in your laboratory.</h2> """, unsafe_allow_html=True)
 
         #verschiedene Tabs horizontal
-        tab1, tab2, tab3, tab4 = st.tabs(["Hematogram II", "Hematogram V", "Shortcut & Definitions", "Graphic"])
+        tab1, tab2, tab3 = st.tabs(["Hematogram II", "Hematogram V", "Shortcut & Definitions"])
 
         with tab1:
             st.header("Hematogram II")
@@ -230,40 +229,6 @@ def welcome():
            st.write(df_definitions.to_html(escape=False, index=False), unsafe_allow_html=True)       
           
          
-            
-         
-            
-        with tab4:
-            st.write("""<h2 style='font-size: 20px; color: grey;'>This page is temporarly progress, we will be back soon!</h2>
-                   """, unsafe_allow_html=True)
-            st.write("""<h2 style='font-size: 20px; color: #d1b8c8; font-style: italic;'>-Team Q-Check </h2>
-                          """, unsafe_allow_html=True)
-            st.header("Graphic")
-            st.write("""<h2 style='font-size: 20px;'>Charts and Graphs</h2>
-                   """, unsafe_allow_html=True)
-       
-            chart_options = ['Bar Chart', 'Line Chart', 'Pie Chart']
-            selected_chart = st.selectbox("Select Chart Type", chart_options)
-
-        if selected_chart == "Bar Chart":
-            x = ['A', 'B', 'C', 'D', 'E']
-            y = [10, 7, 5, 3, 1]
-
-        elif selected_chart == "Bar Chart":
-            st.header('Bar Chart Example')
-            x = np.linspace(0, 10, 100)
-            y = np.sin(x)
-
-        elif selected_chart == "Line Chart":
-            st.header('Line Chart Example')
-            x = np.linspace(0, 10, 100)
-            y = np.sin(x)
-            
-        elif selected_chart == "Pie Chart":
-            st.header('Pie Chart Example')
-            labels = ['Category 1', 'Category 2', 'Category 3']
-            sizes = [30, 50, 20]         
-        
 
     #Videos tab, Schriftart und Grösse definiert
     if choice == "Videos":
@@ -322,11 +287,14 @@ def welcome():
             
 #Feedback tab, Schriftart und Grösse definiert
     if choice == "Feedback":
+        tab1, tab2 = st.tabs(["Feedback", "Feedback Graphic"])
+        
+        with tab1:
 
-        st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
-        st.title('Feedback')
-        st.write("<p style='font-size: 30px; color: grey; text-decoration: none;'>Welcome to our feedback page!</p>", unsafe_allow_html=True)
-        st.markdown(
+            st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
+            st.title('Feedback')
+            st.write("<p style='font-size: 30px; color: grey; text-decoration: none;'>Welcome to our feedback page!</p>", unsafe_allow_html=True)
+            st.markdown(
     """
     <p style='font-size: 20px; text-align: justify;'>
     We are delighted to have you here and appreciate your valuable feedback. Your opinion is of great importance to us as it helps us continuously improve our services to meet your expectations.
@@ -342,27 +310,60 @@ def welcome():
 
 
         #Bild3 hinzugefügt mit Spruch
-        imageabout = Image.open('bilder/feedback.jpg')
-        st.image(imageabout, caption='"Feedback is the breakfast of champions."', use_column_width=True)
+            imageabout = Image.open('bilder/feedback.jpg')
+            st.image(imageabout, caption='"Feedback is the breakfast of champions."', use_column_width=True)
 
-        st.write("""<h2 style='font-size: 20px; color: grey;'>This section is still in progress!</h2>
+            st.write("""<h2 style='font-size: 20px; color: grey;'>This section is still in progress!</h2>
                    """, unsafe_allow_html=True)
-        st.write("""<h2 style='font-size: 20px; color: #d1b8c8; font-style: italic;'>-Team Q-Check </h2>
+            st.write("""<h2 style='font-size: 20px; color: #d1b8c8; font-style: italic;'>-Team Q-Check </h2>
                           """, unsafe_allow_html=True)
 
-        email = st.text_input("Please enter your email address:")
-        feedback = st.text_area("Please enter your feedback:", "")
+            email = st.text_input("Please enter your email address:")
+            feedback = st.text_area("Please enter your feedback:", "")
 
-        if st.button("Submit Feedback"):
+            if st.button("Submit Feedback"):
         # E-Mail-Einstellungen
-            smtp_server = 'smtp.example.com'
-            smtp_port = 587
-            sender_email = email
-            sender_password = 'your_password'
-            receiver_email = 'rukunakk@students.zhaw.ch'
+                smtp_server = 'smtp.example.com'
+                smtp_port = 587
+                sender_email = email
+                sender_password = 'your_password'
+                receiver_email = 'rukunakk@students.zhaw.ch'
 
-            st.write("Thank you for your feedback! Your feedback has been successfully submitted.")
+                st.write("Thank you for your feedback! Your feedback has been successfully submitted.")
       
+        with tab2:
+            st.title('Feedback Graphic')
+            st.write("""<h2 style='font-size: 20px; color: grey;'>This page is temporarly progress, we will be back soon!</h2>
+                   """, unsafe_allow_html=True)
+            st.write("""<h2 style='font-size: 20px; color: #d1b8c8; font-style: italic;'>-Team Q-Check </h2>
+                          """, unsafe_allow_html=True)
+            st.header("Graphic")
+            st.write("""<h2 style='font-size: 20px;'>Charts and Graphs</h2>
+                   """, unsafe_allow_html=True)
+       
+            chart_options = ['Bar Chart', 'Line Chart', 'Pie Chart']
+            selected_chart = st.selectbox("Select Chart Type", chart_options)
+
+        if selected_chart == "Bar Chart":
+            x = ['A', 'B', 'C', 'D', 'E']
+            y = [10, 7, 5, 3, 1]
+
+        elif selected_chart == "Bar Chart":
+            st.header('Bar Chart Example')
+            x = np.linspace(0, 10, 100)
+            y = np.sin(x)
+
+        elif selected_chart == "Line Chart":
+            st.header('Line Chart Example')
+            x = np.linspace(0, 10, 100)
+            y = np.sin(x)
+            
+        elif selected_chart == "Pie Chart":
+            st.header('Pie Chart Example')
+            labels = ['Category 1', 'Category 2', 'Category 3']
+            sizes = [30, 50, 20]  
+
+
 
     #About us tab, Schriftart und Grösse definiert
     if choice == "About Us":
@@ -457,19 +458,35 @@ rukunakk@students.zhaw.ch
 ZHAW Campus Reidbach (RT), School of Life Sciences und Facility Management<br>
 Einsiedlerstrasse 31<br>
 8820 Wädenswil
+
+ZHAW Departement Gesundheit<br>
+Katharina-Sulzer-Platz 9<br>
+8400 Winterthur
+
 """, 
 unsafe_allow_html=True)
                 
-            st.write("""<h2 style='font-size: 15px; color: #d1b8c8; font-style: italic;'>We look forward to hearing from you and will respond to your inquiries as soon as possible. Your feedback and questions are important to us, and we strive to provide the best possible customer service. Thank you for your interest in our company!</h2>
-                              """, unsafe_allow_html=True)
+
+
+            # Koordinaten für die beiden Punkte
+            latitude1 = 47.22714
+            longitude1 = 8.66952
+            latitude2 = 47.499642
+            longitude2 = 8.725621
+
+            # DataFrame mit den beiden Punkten erstellen
+            df = pd.DataFrame({'lat': [latitude1, latitude2], 'lon': [longitude1, longitude2]})
+
+            # Schweizer Karte anzeigen und beide Punkte markieren
+            st.map(df, zoom=9)
 
         
             
 
-    logout_button = st.button ("Logout")
-    if logout_button:
-        st.session_state["logged_in"] = False
-        st.experimental_rerun()
+            logout_button = st.button ("Logout")
+            if logout_button:
+                st.session_state["logged_in"] = False
+                st.experimental_rerun()
 
 # Haupt App
 def app():
