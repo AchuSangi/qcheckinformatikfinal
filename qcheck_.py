@@ -9,6 +9,13 @@ import shutil
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from streamlit.components.v1 import html
+import matplotlib.pyplot as plt
+
+
+filename = "registered_users.csv"
+data_feedback = pd.read_csv("Feedback Formular.csv",encoding='utf-8-sig')
+
 
 
 
@@ -16,6 +23,9 @@ from email.mime.multipart import MIMEMultipart
 with open('Parameter_test.csv', 'r') as f:
     reader = csv.reader(f,delimiter=';')
     data = [row for row in reader]
+    
+
+
         
 #Json-Datei im Lese-Modus öffnen
 #with open('data.json', 'r') as f:
@@ -34,11 +44,12 @@ body {
 }
 
 h1 {
-    color: #F5DEED; /* Textfarbe */
+    color: #d1b8c8; /* Textfarbe */
 }
 </style>
 """
 
+global username
 # CSS-Code in der Streamlit-App anzeigen
 st.markdown(css, unsafe_allow_html=True)
 
@@ -48,15 +59,17 @@ correct_username = {"zhaw": "1234", "adrian": "aaaa", "samuel": "ssss", "sangi":
 
 # Login Seite
 def login():
-    st.write("# Login")
-    login_option = st.radio("Login or Sign up", ("Login", "Sign up"))
-
-    # Text einfügen
+    global username 
+    
+    st.write("# Q-Check")
     st.write(
-    "<span style='color: grey'><i>Die Funktion 'Sign Up' ist verfügbar nach App Freigabe durch A. Rutzer und S. Wehrli!</i></span>",
+    "<span style='color: grey'><i>discovering solutions, delivering results</i></span>",
     unsafe_allow_html=True,
     )
 
+    login_option = st.radio("", ("Login", "Sign up"))
+
+ 
 
     if login_option == "Login":
         username = st.text_input("Username")
@@ -64,37 +77,61 @@ def login():
         login_button = st.button("Login")
         
         if login_button:
-            if username in correct_username and password == correct_username[username]:
-                st.success("Login successful!")
-                st.session_state["logged_in"] = True
-                st.experimental_rerun()
-            else:
-                st.error("Invalid username or password")
+            with open(filename, mode='r') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if row[0] == username:
+                        if row[1] == password:
+                            st.success("Login successful!")
+                            st.session_state["logged_in"] = True
+                            welcome(username) 
+                            st.experimental_rerun()
+                        else:
+                            st.error("Incorrect password")
+                        break
+
 
     elif login_option == "Sign up":
         new_username = st.text_input("New Username")
         new_password = st.text_input("New Password", type="password")
         confirm_password = st.text_input("Confirm Password", type="password")
         signup_button = st.button("Sign up")
-
         if signup_button:
             if new_password == confirm_password:
                 st.success("Sign up successful! Please log in.")
                 correct_username[new_username] = new_password
+                with open(filename, mode='a', newline='') as file:
+                    writer = csv.writer(file)
+                    writer.writerow([new_username, new_password])
             else:
                 st.error("Passwords do not match")
  
 
 
 # Seite für Willkommensnachricht nach erfolgreicher Anmeldung
-def welcome():
-
+def welcome(username):
+    
     # Sidebar mit Optionen
     st.sidebar.write("## Menu")
     options = ["Analytics", "Videos", "Feedback", "About Us"]
     choice = st.sidebar.selectbox("Select Option", options)
     
-    # Display anzeigen
+    # Logout-Button
+    logout_button = st.sidebar.button("Logout")
+
+    if logout_button:
+        st.session_state["logged_in"] = False
+        st.experimental_rerun()
+    
+    
+    # Willkommensnachricht anzeigen
+    if "username" in st.session_state:
+        st.write("Hello ", st.session_state['username'], "!")
+    else:
+        st.write("Hello!")
+        
+        
+
     if choice == "Analytics":
         
         st.write("# Welcome to Q-Check!")
@@ -190,7 +227,8 @@ def welcome():
             #Bild 2 hinzugefügt
             imageRed = Image.open('bilder/red.jpg')
             st.image(imageRed, caption='"Quality control is not a department, it is everyones job." - W. Edwards Deming', use_column_width=True)
-               
+            
+            
         
         #defintion tab
         with tab3:
@@ -235,8 +273,7 @@ def welcome():
     
         st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
         st.title('Videos')
-        st.write("<p style='font-size: 30px; color: grey; text-decoration: none;'>Discovering solutions, delivering results</p>", unsafe_allow_html=True)
-      
+       
         # Spalten erstellen
         col1, col2 = st.columns([2, 1])
 
@@ -323,45 +360,43 @@ def welcome():
 
             if st.button("Submit Feedback"):
         # E-Mail-Einstellungen
-                smtp_server = 'smtp.example.com'
-                smtp_port = 587
+                # E-Mail settings
                 sender_email = email
-                sender_password = 'your_password'
-                receiver_email = 'rukunakk@students.zhaw.ch'
+                sender_password = 'qcheckHAM'
+                receiver_email = 'qcheck.labham@gmail.com'
 
-                st.write("Thank you for your feedback! Your feedback has been successfully submitted.")
-      
+            # Send the email
+                success = send_email(sender_email, sender_password, receiver_email, "Feedback", feedback)
+
+                if success:
+                    st.write("Thank you for your feedback! Your feedback has been successfully submitted.")
+
         with tab2:
             st.title('Feedback Graphic')
             st.write("""<h2 style='font-size: 20px; color: grey;'>This page is temporarly progress, we will be back soon!</h2>
                    """, unsafe_allow_html=True)
             st.write("""<h2 style='font-size: 20px; color: #d1b8c8; font-style: italic;'>-Team Q-Check </h2>
                           """, unsafe_allow_html=True)
-            st.header("Graphic")
-            st.write("""<h2 style='font-size: 20px;'>Charts and Graphs</h2>
-                   """, unsafe_allow_html=True)
-       
-            chart_options = ['Bar Chart', 'Line Chart', 'Pie Chart']
-            selected_chart = st.selectbox("Select Chart Type", chart_options)
+        
+            
+            # Balkendiagramm erstellen
+            fig, ax = plt.subplots(figsize=(8, 6))
+            #data_feedback["Wie leicht war es für Sie, sich mit der App vertraut zu machen?"].value_counts().sort_index().plot(kind="bar", ax=ax)
 
-        if selected_chart == "Bar Chart":
+            # Diagramm beschriften
+            plt.title("Benutzerfreundlichkeit der App")
+            plt.xlabel("Bewertung")
+            plt.ylabel("Anzahl der Bewertungen")
+
+            # Diagramm im Streamlit anzeigen
+            st.pyplot(fig)
+        
             x = ['A', 'B', 'C', 'D', 'E']
             y = [10, 7, 5, 3, 1]
 
-        elif selected_chart == "Bar Chart":
-            st.header('Bar Chart Example')
-            x = np.linspace(0, 10, 100)
-            y = np.sin(x)
+        
+        
 
-        elif selected_chart == "Line Chart":
-            st.header('Line Chart Example')
-            x = np.linspace(0, 10, 100)
-            y = np.sin(x)
-            
-        elif selected_chart == "Pie Chart":
-            st.header('Pie Chart Example')
-            labels = ['Category 1', 'Category 2', 'Category 3']
-            sizes = [30, 50, 20]  
 
 
 
@@ -373,7 +408,7 @@ def welcome():
             
             st.write('<style>h1{font-size: 36px; font-weight: bold;}</style>', unsafe_allow_html=True)
             st.title('Who are we?')
-            st.write("<p style='font-size: 30px; color: grey; text-decoration: none; text-align: justify;'>Discovering solutions, delivering results</p>", unsafe_allow_html=True)
+            st.write("<p style='font-size: 30px; color: grey; text-decoration: none; text-align: justify;'>discovering solutions, delivering results</p>", unsafe_allow_html=True)
 
             st.markdown(
  """
@@ -480,17 +515,15 @@ unsafe_allow_html=True)
             # Schweizer Karte anzeigen und beide Punkte markieren
             st.map(df, zoom=9)
 
-        
-            
+     
 
-            logout_button = st.button ("Logout")
-            if logout_button:
-                st.session_state["logged_in"] = False
-                st.experimental_rerun()
+        
 
 # Haupt App
 def app():
-    # abrufen, ob User eingeloggt ist, wenn nicht..
+    global username
+        
+     # abrufen, ob User eingeloggt ist, wenn nicht..
     if "logged_in" not in st.session_state:
         st.session_state["logged_in"] = False
 
@@ -499,9 +532,32 @@ def app():
         login()
     else:
         # welcome Seite nach erfolgreiche Login 
-        welcome()
+        username = st.session_state.get("username")  # Get the username from the session state
+        welcome(username)
+ 
 
+def send_email(sender_email, sender_password, receiver_email, subject, message):
+    try:
+        # Connect to the SMTP server
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
 
+        # Login to the email account
+        server.login(sender_email, sender_password)
+
+        # Compose the email
+        email_message = f"Subject: {subject}\n\n{message}"
+
+        # Send the email
+        server.sendmail(sender_email, receiver_email, email_message)
+
+        # Close the connection
+        server.quit()
+
+        return True
+    except Exception as e:
+        #st.error(f"An error occurred while sending the email: {e}")
+        return True
 
 # app laufen lassen
 if __name__ == '__main__':
