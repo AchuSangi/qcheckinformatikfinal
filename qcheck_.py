@@ -61,7 +61,7 @@ correct_username = {"zhaw": "1234", "adrian": "aaaa", "samuel": "ssss", "sangi":
 def login():
     global username 
     
-    st.write("# Q-Check")
+    st.write("# Q-CHECK")
     st.write(
     "<span style='color: grey'><i>discovering solutions, delivering results</i></span>",
     unsafe_allow_html=True,
