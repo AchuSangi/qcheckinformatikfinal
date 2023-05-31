@@ -139,10 +139,10 @@ def welcome(username):
         st.markdown(""" <h2 style='font-size: 20px;'><em>Qualitycheck</em> is an open-source app framework built specifically to check quality control range in your laboratory.</h2> """, unsafe_allow_html=True)
 
         #verschiedene Tabs horizontal
-        tab1, tab2, tab3 = st.tabs(["Hematogram II", "Hematogram V", "Shortcut & Definitions"])
+        tab1, tab2, tab3, tab4 = st.tabs(["hematogram II", "hematogram V", "shortcut & definitions", "blood cell images"])
 
         with tab1:
-            st.header("Hematogram II")
+            st.header("hematogram II")
             st.write("""<h2 style='font-size: 20px;'>Calculations for Quality Control</h2>
                         """, unsafe_allow_html=True)
             st.markdown("<p style='text-align: justify;'><em>Indication:</em> Anemia, infections, intoxications, collagenosis, leukemia and other systemic hematological diseases, malignant tumors, control of therapies, bone marrow depression (radiation, chemotherapy, immunosuppression).</p>", unsafe_allow_html=True)
@@ -186,7 +186,7 @@ def welcome(username):
 
 
         with tab2:
-            st.header("Hematogram V")
+            st.header("hematogram V")
             st.write("""<h2 style='font-size: 20px;'>Calculations for Quality Control</h2>
                        """, unsafe_allow_html=True)
             
@@ -233,13 +233,14 @@ def welcome(username):
         #defintion tab
         with tab3:
            st.write('<style>h2 {font-size: 28px; font-weight: bold, sans-serif;}</style>', unsafe_allow_html=True)
-           st.header('Shortcuts & Definitions')
+           st.header('shortcuts & definitions')
+           
            
            # Pandas DataFrame für die Definitionen erstellt -> Tabelle
            df_definitions = pd.DataFrame({
-               'Shortcut': ['BASO', 'RBC', 'EO', 'HGB', 'HCT', 'WBC', 'LYMPH', 'MCH', 'MCHC', 'MCV', 'MONO', 'NEUT', 'PLT'],
-               'Full Name': ['Basophils', 'Red Blood Cells', 'Eosinophils', 'Hemoglobin', 'Hematocrit', 'White Blood Cells', 'Lymphocytes', 'Mean Corpuscular Hemoglobin', 'Mean Corpuscular Hemoglobin Concentration', 'Mean Corpuscular Volume', 'Monocytes', 'Neutrophils', 'Platelets'],
-               'Definition': [
+               'shortcut': ['BASO', 'RBC', 'EO', 'HGB', 'HCT', 'WBC', 'LYMPH', 'MCH', 'MCHC', 'MCV', 'MONO', 'NEUT', 'PLT'],
+               'full name': ['basophils', 'red blood cells', 'eosinophils', 'hemoglobin', 'hematocrit', 'white blood cells', 'lymphocytes', 'mean corpuscular hemoglobin', 'mean corpuscular hemoglobin concentration', 'mean corpuscular volume', 'monocytes', 'neutrophils', 'platelets'],
+               'definition': [
                    'Basophils are a type of white blood cell that works closely with your immune system to defend your body from allergens, pathogens and parasites. Basophils release enzymes to improve blood flow and prevent blood clots.',
                    'A type of blood cell that is made in the bone marrow and found in the blood. Red blood cells contain a protein called hemoglobin, which carries oxygen from the lungs to all parts of the body.',
                    'Eosinophils are one of several white blood cells that support your immune system. Sometimes, certain medical conditions and medications cause high eosinophil levels.',
@@ -254,19 +255,48 @@ def welcome(username):
                    'Neutrophils help your immune system fight infections and heal injuries. Neutrophils are the most common type of white blood cell in your body.',
                    'Platelets are the smallest component of your blood that control bleeding. Platelets cluster together to form a clot and prevent bleeding at the site of an injury.'
             
-        ]
-               
-               
-    })
-    
+        ],
+        
+          
+        
+        
+        })
+     
+           
+           
+           
            def format_definition(definition):
                  return f"<p style='font-size: 16px; text-align: justify;'>{definition}</p>"
 
-           df_definitions['Definition'] = df_definitions['Definition'].apply(format_definition)
+           df_definitions['definition'] = df_definitions['definition'].apply(format_definition)
 
            st.write(df_definitions.to_html(escape=False, index=False), unsafe_allow_html=True)       
           
-         
+           with tab4:
+              st.header("blood cell images")
+    
+                 
+              imageBasophils = Image.open('bilder/basophils.jpg')
+              st.image(imageBasophils, caption='basophils', use_column_width=True)
+              
+              imageRedbloodcells = Image.open('bilder/redbloodcells.jpg')
+              st.image(imageRedbloodcells, caption='red blood cells', use_column_width=True)
+              
+              imageEosinophils = Image.open('bilder/eosinophils.jpg')
+              st.image(imageEosinophils, caption='eosinophils', use_column_width=True)
+              
+              imageLymphocytes = Image.open('bilder/lymphocytes.jpg')
+              st.image(imageLymphocytes, caption='lymphocytes', use_column_width=True)
+              
+              imageMonocytes = Image.open('bilder/monocytes.jpg')
+              st.image(imageMonocytes, caption='monocytes', use_column_width=True)
+              
+              imageNeutrophils = Image.open('bilder/neutrophils.jpg')
+              st.image(imageNeutrophils, caption='neutrophils', use_column_width=True)
+              
+              imagePlatelets = Image.open('bilder/platelets.jpg')
+              st.image(imagePlatelets, caption='platelets', use_column_width=True)
+                      
 
     #Videos tab, Schriftart und Grösse definiert
     if choice == "Videos":
